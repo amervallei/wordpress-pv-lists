@@ -6,7 +6,7 @@
 	--------------------------------------------- */
 
 	.content {
-        width: 100%;
+		width: 100%;
     }
     
     /* Tables
@@ -19,6 +19,7 @@ table {
 	margin-bottom: 40px;
 	width: 100%;
 	word-break: break-all;
+	font-size: 12px;
 }
 
 tbody {
@@ -36,7 +37,7 @@ td {
 }
 
 th {
-	font-weight: 600;
+	font-weight: 200;
 	padding: 0 6px;
 }
 

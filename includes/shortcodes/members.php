@@ -1,5 +1,9 @@
 <?php
 
 function pv_members_shortcode(){
-    return '<br>This is where the member list will come!';    
+    // apply custom css from the plugin to this shortcode only
+    wp_enqueue_style( 'pv_lists' );
+
+    // run database query
+    return query_members();
 }
