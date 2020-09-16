@@ -26,7 +26,7 @@ function query_members(){
                     -- max(case when m.meta_key = 'billing_email' then m.meta_value end) Email,
                     -- max(case when m.meta_key = 'gilde_status' then m.meta_value end) Gilde_Status,
                     max(case when m.meta_key = 'account_status' then m.meta_value end) Status,
-                    REGEXP_SUBSTR(max(case when m.meta_key = 'www_capabilities' then m.meta_value END),'"([a-z]*)"' ) Rechten
+                    REGEXP_SUBSTR(max(case when m.meta_key = 'www_capabilities' then m.meta_value END),'([a-z\s]{5,})' ) Rechten
                 FROM
                     www_users u
                     INNER JOIN www_usermeta m ON u.ID = m.user_id
