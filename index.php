@@ -19,11 +19,12 @@ if( !function_exists('add_action' ) ){
 
 //  Includes
 include( 'includes/activate.php' );
+include( 'includes/query-orders.php' );
+include( 'includes/query-members.php');
+include( 'includes/display-table.php');
 include( 'includes/shortcodes/test.php' );
 include( 'includes/shortcodes/orders.php' );
 include( 'includes/shortcodes/members.php' );
-include( 'includes/query-orders.php' );
-include( 'includes/query-members.php');
 
 //  Hooks
 register_activation_hook( __FILE__, 'pv_activate_plugin' );
