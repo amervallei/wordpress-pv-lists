@@ -5,8 +5,7 @@ function display_table( $results ){
 	$headers = $results[0];
 	// print_r( $headers );
 	// print_r( $results );
-printf('<table %s','style="color: red;">');
-//	echo '<table>';
+	echo '<table>';
 	// table headers
 	echo "<tr>";
 	foreach($headers as $key => $value){
