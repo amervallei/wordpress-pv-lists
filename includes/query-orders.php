@@ -20,11 +20,11 @@ function query_orders(){
             max(case when oim.meta_key = '_qty' then oim.meta_value end) Stk,
             max(case when oim.meta_key = '_line_total' then oim.meta_value end) Euro
             FROM
-            www_woocommerce_order_itemmeta oim
-            JOIN www_woocommerce_order_items oi ON oim.order_item_id = oi.order_item_id
-            JOIN www_posts p ON oi.order_id = p.ID
-            JOIN www_postmeta pm ON oi.order_id = pm.post_id
-            JOIN www_users u ON pm.meta_value = u.ID
+            {$wpdb->prefix}woocommerce_order_itemmeta oim
+            JOIN {$wpdb->prefix}woocommerce_order_items oi ON oim.order_item_id = oi.order_item_id
+            JOIN {$wpdb->prefix}posts p ON oi.order_id = p.ID
+            JOIN {$wpdb->prefix}postmeta pm ON oi.order_id = pm.post_id
+            JOIN {$wpdb->prefix}users u ON pm.meta_value = u.ID
             WHERE
             pm.meta_key = '_customer_user'
             AND to_days(current_timestamp()) - to_days(`p`.`post_date`) < 120
