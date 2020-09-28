@@ -2,6 +2,8 @@
 
 function display_table( $results ){
 
+	$table = NULL;
+
 	$headers = $results[0];
 	// print_r( $headers );
 	// print_r( $results );
@@ -12,6 +14,7 @@ function display_table( $results ){
 		echo '<th>';
 		echo $key;
 		echo "</th>";
+		$table = $table . '<br>Next: ' . $key . '<br>'; 
 	}
 	echo "</tr>";
 
@@ -28,5 +31,7 @@ function display_table( $results ){
 		echo "</tr>";
 	}
 	echo "</table>";
+
+	return($table);
 
 }
