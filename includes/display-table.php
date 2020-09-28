@@ -7,30 +7,25 @@ function display_table( $results ){
 	$headers = $results[0];
 	// print_r( $headers );
 	// print_r( $results );
-	echo '<table>';
+	$table = $table . '<table>';
 	// table headers
-	echo "<tr>";
+	$table = $table . '<tr>';
 	foreach($headers as $key => $value){
-		echo '<th>';
-		echo $key;
-		echo "</th>";
-		$table = $table . '<br>Next: ' . $key . '<br>'; 
+		$table = $table . '<th>' . $key . '</th>'; 
 	}
-	echo "</tr>";
+	$table = $table . '</tr>';
 
 	// table contents
 	foreach ($results as $row) {
-		echo "<tr>";
+		$table = $table . '<tr>';
 		//	print_r( $row );
 		foreach( $row as $key => $value ){
-			echo "<td>";
-			echo $value ;
 			//			echo $key . ' : ' . $value ;
-			echo "</td>";
+			$table = $table . '<td>' . $value . '</td>';
 		}
-		echo "</tr>";
+		$table = $table . '</tr>';
 	}
-	echo "</table>";
+	$table = $table . '</table>';
 
 	return($table);
 
