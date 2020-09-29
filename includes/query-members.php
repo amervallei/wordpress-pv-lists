@@ -38,6 +38,6 @@ function query_members(){
 
     $results = $wpdb->get_results( $sql, OBJECT );
 
-    display_table( $results );
+    return display_table( $results );
 
 }

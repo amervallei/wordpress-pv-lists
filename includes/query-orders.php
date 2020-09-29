@@ -36,6 +36,6 @@ function query_orders(){
 
     $results = $wpdb->get_results( $sql, OBJECT );
 
-    display_table( $results );
+    return display_table( $results );
 
 }
