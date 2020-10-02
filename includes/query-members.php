@@ -20,7 +20,7 @@ function query_members(){
                     -- max(case when m.meta_key = 'last_name' then m.meta_value end) Achternaam,
                     max(case when m.meta_key = 'billing_address_1' then m.meta_value end) Adres,
                     max(case when m.meta_key = 'billing_postcode' then m.meta_value end) Postcode,
-                    max(case when m.meta_key = 'billing_city' then m.meta_value end) Stadt,
+                    max(case when m.meta_key = 'billing_city' then m.meta_value end) Stad,
                     max(case when m.meta_key = 'billing_phone' then m.meta_value end) Phone,
                     max(case when m.meta_key = 'mobile_number' then m.meta_value end) Mobile,
                     -- max(case when m.meta_key = 'billing_email' then m.meta_value end) Email,
