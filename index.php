@@ -20,9 +20,9 @@ if( !function_exists('add_action' ) ){
 //  Includes
 include( 'includes/activate.php' );
 include( 'includes/query-orders.php' );
-include( 'includes/query-members.php');
-include( 'includes/display-table.php');
-include( 'includes/shortcodes/test.php' );
+include( 'includes/query-members.php' );
+include( 'includes/display-table.php' );
+include( 'includes/download.php' );
 include( 'includes/shortcodes/orders.php' );
 include( 'includes/shortcodes/members.php' );
 
@@ -31,7 +31,6 @@ register_activation_hook( __FILE__, 'pv_activate_plugin' );
 
 
 //  Shortcodes
-add_shortcode( 'test', 'pv_test_shortcode' );
 add_shortcode( 'order-list', 'pv_orders_shortcode' );
 add_shortcode( 'member-list', 'pv_members_shortcode' );
 
