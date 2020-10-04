@@ -2,7 +2,12 @@
 
 function pv_orders_shortcode(){
     
-    // apply custom css from the plugin to this shortcode only
+    // Test if user is logged in
+    if ( !is_user_logged_in() ){
+        return 'You must be logged in to view this content.';
+    }
+    
+        // apply custom css from the plugin to this shortcode only
     wp_enqueue_style( 'pv_lists' );
 
     /* run database query to collect extensive data for download */

@@ -2,6 +2,9 @@
 
 function convert_to_csv($array_of_objects, $output_file_name, $delimiter){
     
+    // Set path to download folder location from root
+    $output_file_name = 'wp-content/plugins/pv-lists/downloads/' . $output_file_name;
+    
     // Open a file to write to
     $fp = fopen($output_file_name, 'wb');
 
@@ -31,6 +34,8 @@ function convert_to_csv($array_of_objects, $output_file_name, $delimiter){
     fclose($fp);
 
     echo '<div class="wp-block-file">
-        <a href="http://localhost/amervallei/report.csv">Output as CSV file </a><a href="http://localhost/amervallei/report.csv" class="wp-block-file__button" download>Download</a></div>';
+            <a href="' . home_url() . '/' . $output_file_name . '">Output as CSV file </a>
+            <a href="' . home_url() . '/' . $output_file_name . '" class="wp-block-file__button" download>Download</a>
+        </div>';
 
 }
