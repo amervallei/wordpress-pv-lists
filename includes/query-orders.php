@@ -18,7 +18,15 @@ function query_orders(){
             u.ID Lid,
             oi.order_item_name Product,
             max(case when oim.meta_key = '_qty' then oim.meta_value end) Stk,
-            max(case when oim.meta_key = '_line_total' then oim.meta_value end) Euro
+            max(case when oim.meta_key = '_line_total' then 
+                    CONCAT( '       ' , regexp_substr(oim.meta_value, '[0-9]+') , 
+                        CASE
+                        WHEN LOCATE('.', oim.meta_value) = 0 THEN '.00'
+                        ELSE LEFT(CONCAT(REGEXP_substr(oim.meta_value , '[.].+' ) , '0'),3)
+                        END
+                    )
+                end
+            ) Euro
             FROM
             {$wpdb->prefix}woocommerce_order_itemmeta oim
             JOIN {$wpdb->prefix}woocommerce_order_items oi ON oim.order_item_id = oi.order_item_id
@@ -57,7 +65,15 @@ function query_orders_full(){
             u.ID Lid,
             oi.order_item_name Product,
             max(case when oim.meta_key = '_qty' then oim.meta_value end) Stk,
-            max(case when oim.meta_key = '_line_total' then oim.meta_value end) Euro
+            max(case when oim.meta_key = '_line_total' then 
+                    CONCAT( '       ' , regexp_substr(oim.meta_value, '[0-9]+') , 
+                        CASE
+                        WHEN LOCATE('.', oim.meta_value) = 0 THEN '.00'
+                        ELSE LEFT(CONCAT(REGEXP_substr(oim.meta_value , '[.].+' ) , '0'),3)
+                        END
+                    )
+                end
+            ) Euro
             FROM
             {$wpdb->prefix}woocommerce_order_itemmeta oim
             JOIN {$wpdb->prefix}woocommerce_order_items oi ON oim.order_item_id = oi.order_item_id
