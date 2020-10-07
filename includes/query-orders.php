@@ -19,7 +19,7 @@ function query_orders(){
             oi.order_item_name Product,
             max(case when oim.meta_key = '_qty' then oim.meta_value end) Stk,
             max(case when oim.meta_key = '_line_total' then 
-                    CONCAT( '       ' , regexp_substr(oim.meta_value, '[0-9]+') , 
+                    CONCAT(regexp_substr(oim.meta_value, '[0-9]+') , 
                         CASE
                         WHEN LOCATE('.', oim.meta_value) = 0 THEN '.00'
                         ELSE LEFT(CONCAT(REGEXP_substr(oim.meta_value , '[.].+' ) , '0'),3)
@@ -66,7 +66,7 @@ function query_orders_full(){
             oi.order_item_name Product,
             max(case when oim.meta_key = '_qty' then oim.meta_value end) Stk,
             max(case when oim.meta_key = '_line_total' then 
-                    CONCAT( '       ' , regexp_substr(oim.meta_value, '[0-9]+') , 
+                    CONCAT(regexp_substr(oim.meta_value, '[0-9]+') , 
                         CASE
                         WHEN LOCATE('.', oim.meta_value) = 0 THEN '.00'
                         ELSE LEFT(CONCAT(REGEXP_substr(oim.meta_value , '[.].+' ) , '0'),3)
