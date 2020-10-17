@@ -34,7 +34,7 @@ function query_members(){
                 GROUP BY
                     u.ID, u.display_name, u.user_email
                 ) a
-                WHERE		a.Status != 'inactive'
+                WHERE		a.Status != 'inactive' OR ISNULL(a.Status)
             SQL;
 
     return $wpdb->get_results( $sql, OBJECT );
@@ -77,7 +77,7 @@ function query_members_full(){
                 GROUP BY
                     u.ID, u.display_name, u.user_email
                 ) a
-                WHERE		a.Status != 'inactive'
+                WHERE		a.Status != 'inactive' OR ISNULL(a.Status) OR ISNULL(a.Status)
             SQL;
 
     return $wpdb->get_results( $sql, OBJECT );
