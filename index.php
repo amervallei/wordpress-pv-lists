@@ -25,6 +25,7 @@ include( 'includes/display-table.php' );
 include( 'includes/download.php' );
 include( 'includes/shortcodes/orders.php' );
 include( 'includes/shortcodes/members.php' );
+include( 'includes/shortcodes/recipes.php' );
 
 //  Hooks
 register_activation_hook( __FILE__, 'pv_activate_plugin' );
@@ -33,6 +34,7 @@ register_activation_hook( __FILE__, 'pv_activate_plugin' );
 //  Shortcodes
 add_shortcode( 'order-list', 'pv_orders_shortcode' );
 add_shortcode( 'member-list', 'pv_members_shortcode' );
+add_shortcode( 'recipes-list', 'pv_recipes_shortcode');
 
 
 // Add custom stylesheet called custom.css
