@@ -11,12 +11,28 @@ function pv_recipes_shortcode(){
     wp_enqueue_style( 'pv_lists' );
     
     // get and display recipes
-    $results = pv_get_recipes();
-    return pv_display_recipes( $results );
+    $categories =   ['Klasse A',
+                     'Klasse B',
+                     'Klasse C',
+                     'Klasse D',
+                     'Vrije Klasse'
+                    ];
+    $categoriesin   =   '';
+                    $i = 0;
+                    foreach($categories as $category){
+                        if( $i != 0 ){
+                            $categoriesin .= ',';
+                        }
+                        $categoriesin .= "'" . $category . "'";
+                        $i ++;
+                    }
+
+    $results = pv_get_recipes( $categoriesin );
+    return pv_display_recipes( $categories, $results );
 
 }
 
-function pv_get_recipes(){
+function pv_get_recipes($categoriesin){
     global $wpdb;
 
 	$sql = <<<SQL
@@ -34,7 +50,7 @@ function pv_get_recipes(){
                 WHERE
                 --	p.post_type = 'wprm_recipe' AND 
                     p.post_status = 'publish' AND 
-                    t.name IN ( 'Klasse A', 'Klasse B', 'Klasse C', 'Klasse D' ) AND 
+                    t.name IN ( $categoriesin ) AND 
                     x.taxonomy = 'category'
                 --	x.taxonomy = 'wprm_bierklasse'
                     
@@ -47,13 +63,19 @@ function pv_get_recipes(){
 
 }
 
-function pv_display_recipes( $results ){
-    $output = '<table>';
-    foreach( $results as $row){
-        $output .= '<tr><td><a href="' . $row->guid . '">' . $row->post_title . '</a></td><td>' . $row->name . '</td><td>' . $row->post_excerpt . '</td></tr>';
+function pv_display_recipes( $categories, $results ){
+    $output = '<table style="width: 100%><tr><th style="width: 40%"></th><th></th></tr>';
+    foreach($categories as $category){
+        $output .= '<tr><td><h4>' . $category . '</h4></td><td></td></tr>';
+        
+        foreach( $results as $row){
+            if( $category == $row->name ){
+                $output .= '<tr><td><a href="' . $row->guid . '">' . $row->post_title . '</a></td><td>' . $row->post_excerpt . '</td></tr>';
+            }
+        }
     }
     $output .= '</table>';
-
+    
     return $output;
 
 }
