@@ -21,3 +21,6 @@ Each SQL query is contained in its individual function file located in the inclu
 
 ### Formated output
 The function display_table parses the object in a nested loop. The outer loop steps through the rows of the table and the inner loop steps through the column values. The result is output directly to screen.
+
+## Revision History
+1.5 Recipe lists added
