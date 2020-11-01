@@ -14,7 +14,7 @@ function pv_orders_shortcode(){
     $results = query_orders_full();
 
     /* convert to csv file and provide download button */
-    echo convert_to_csv($results, 'report.csv', ',');
+    echo convert_to_csv($results, 'orders.csv', ',');
 
     /* run database query to collect limited data for display on screen */
     $results = query_orders();
