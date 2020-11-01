@@ -12,34 +12,29 @@ function query_orders(){
 
 	$sql = <<<SQL
             SELECT
-            oi.order_id Nr,
-            DATE_FORMAT(p.post_date, '%d.%m.%Y' ) Datum,
-            u.display_name Naam,
-            u.ID Lid,
-            oi.order_item_name Product,
-            max(case when oim.meta_key = '_qty' then oim.meta_value end) Stk,
-            max(case when oim.meta_key = '_line_total' then 
-                    CONCAT(regexp_substr(oim.meta_value, '[0-9]+') , 
+                p.ID Nr, 
+                DATE_FORMAT(p.post_date, '%d.%m.%Y' ) Datum,
+                CONCAT(oc.first_name, ' ', oc.last_name) Naam,
+                os.customer_id Lid, 
+                oi.order_item_name Product, 
+                os.num_items_sold Stk,
+                CONCAT(regexp_substr(os.total_sales, '[0-9]+') , 
                         CASE
-                        WHEN LOCATE('.', oim.meta_value) = 0 THEN '.00'
-                        ELSE LEFT(CONCAT(REGEXP_substr(oim.meta_value , '[.].+' ) , '0'),3)
+                        WHEN LOCATE('.', os.total_sales) = 0 THEN '.00'
+                        ELSE LEFT(CONCAT(REGEXP_substr(os.total_sales , '[.].+' ) , '0'),3)
                         END
                     )
-                end
-            ) Euro
+                Euro
             FROM
-            {$wpdb->prefix}woocommerce_order_itemmeta oim
-            JOIN {$wpdb->prefix}woocommerce_order_items oi ON oim.order_item_id = oi.order_item_id
-            JOIN {$wpdb->prefix}posts p ON oi.order_id = p.ID
-            JOIN {$wpdb->prefix}postmeta pm ON oi.order_id = pm.post_id
-            JOIN {$wpdb->prefix}users u ON pm.meta_value = u.ID
+            	{$wpdb->prefix}posts p
+                INNER JOIN	{$wpdb->prefix}wc_order_stats os ON p.ID = os.order_id
+                INNER JOIN	{$wpdb->prefix}woocommerce_order_items  oi ON p.ID = oi.order_id
+                INNER JOIN	{$wpdb->prefix}wc_customer_lookup oc ON os.customer_id = oc.customer_id
             WHERE
-            pm.meta_key = '_customer_user'
-            AND to_days(current_timestamp()) - to_days(`p`.`post_date`) < 120
-            GROUP BY
-            oim.order_item_id
+            	p.post_status NOT LIKE '%cancelled%' AND
+                to_days(current_timestamp()) - to_days(`p`.`post_date`) < 120
             ORDER BY
-            oi.order_id desc;
+                oi.order_id desc;
             SQL;
 
     return $wpdb->get_results( $sql, OBJECT );
@@ -59,34 +54,29 @@ function query_orders_full(){
 
 	$sql = <<<SQL
             SELECT
-            oi.order_id Nr,
-            DATE_FORMAT(p.post_date, '%d.%m.%Y' ) Datum,
-            u.display_name Naam,
-            u.ID Lid,
-            oi.order_item_name Product,
-            max(case when oim.meta_key = '_qty' then oim.meta_value end) Stk,
-            max(case when oim.meta_key = '_line_total' then 
-                    CONCAT(regexp_substr(oim.meta_value, '[0-9]+') , 
+                p.ID Nr, 
+                DATE_FORMAT(p.post_date, '%d.%m.%Y' ) Datum,
+                CONCAT(oc.first_name, ' ', oc.last_name) Naam,
+                os.customer_id Lid, 
+                oi.order_item_name Product, 
+                os.num_items_sold Stk,
+                CONCAT(regexp_substr(os.total_sales, '[0-9]+') , 
                         CASE
-                        WHEN LOCATE('.', oim.meta_value) = 0 THEN '.00'
-                        ELSE LEFT(CONCAT(REGEXP_substr(oim.meta_value , '[.].+' ) , '0'),3)
+                        WHEN LOCATE('.', os.total_sales) = 0 THEN '.00'
+                        ELSE LEFT(CONCAT(REGEXP_substr(os.total_sales , '[.].+' ) , '0'),3)
                         END
                     )
-                end
-            ) Euro
+                Euro,
+                p.post_excerpt Notities, 
+                SUBSTR( p.post_status, 4)  Status, 
+                oi.order_item_id Orders
             FROM
-            {$wpdb->prefix}woocommerce_order_itemmeta oim
-            JOIN {$wpdb->prefix}woocommerce_order_items oi ON oim.order_item_id = oi.order_item_id
-            JOIN {$wpdb->prefix}posts p ON oi.order_id = p.ID
-            JOIN {$wpdb->prefix}postmeta pm ON oi.order_id = pm.post_id
-            JOIN {$wpdb->prefix}users u ON pm.meta_value = u.ID
-            WHERE
-            pm.meta_key = '_customer_user'
-            -- AND to_days(current_timestamp()) - to_days(`p`.`post_date`) < 120
-            GROUP BY
-            oim.order_item_id
+            	{$wpdb->prefix}posts p
+                INNER JOIN	{$wpdb->prefix}wc_order_stats os ON p.ID = os.order_id
+                INNER JOIN	{$wpdb->prefix}woocommerce_order_items  oi ON p.ID = oi.order_id
+                INNER JOIN	{$wpdb->prefix}wc_customer_lookup oc ON os.customer_id = oc.customer_id
             ORDER BY
-            oi.order_id desc;
+                oi.order_id desc;
             SQL;
 
     return $wpdb->get_results( $sql, OBJECT );
