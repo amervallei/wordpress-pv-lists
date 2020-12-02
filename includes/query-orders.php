@@ -16,7 +16,7 @@ function query_orders(){
                 DATE_FORMAT(p.post_date, '%d.%m.%Y' ) Datum,
                 CONCAT(oc.first_name, ' ', oc.last_name) Naam,
                 oc.user_id Lid, 
-                CONCAT(oi.order_item_name,IFNULL(MAX(case when im.meta_key = 'selectie-aangeven' then CONCAT(': ',im.meta_value) END),'')) Product, 
+                CONCAT(oi.order_item_name,IFNULL(MAX(case when im.meta_key IN ('keuze','selectie-aangeven','voorkeur') then CONCAT(': ',im.meta_value) END),'')) Product, 
                 MAX(case when im.meta_key = '_qty' then im.meta_value END) Stk,
                 MAX(case when im.meta_key = '_line_total' then CONCAT(regexp_substr(im.meta_value, '[0-9]+') , 
                         CASE
@@ -61,7 +61,7 @@ function query_orders_full(){
                 DATE_FORMAT(p.post_date, '%d.%m.%Y' ) Datum,
                 CONCAT(oc.first_name, ' ', oc.last_name) Naam,
                 oc.user_id Lid, 
-                CONCAT(oi.order_item_name,IFNULL(MAX(case when im.meta_key = 'selectie-aangeven' then CONCAT(': ',im.meta_value) END),'')) Product, 
+                CONCAT(oi.order_item_name,IFNULL(MAX(case when im.meta_key IN ('keuze','selectie-aangeven','voorkeur') then CONCAT(': ',im.meta_value) END),'')) Product, 
                 MAX(case when im.meta_key = '_qty' then im.meta_value END) Stk,
                 MAX(case when im.meta_key = '_line_total' then CONCAT(regexp_substr(im.meta_value, '[0-9]+') , 
                         CASE
