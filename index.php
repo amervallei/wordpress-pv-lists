@@ -2,7 +2,7 @@
 /*
 * Plugin Name: PV Lists
 * Description: A simple WordPress plgin that produces overview lists for orders and members
-* Version: 1.7
+* Version: 1.8
 * Author: Paul Vincent
 * Author URI: https://amervallei.nl
 * Text Domain: lists
